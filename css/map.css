@@ -1,0 +1,19 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#map {
+    position:absolute;
+    top:50px;
+    left:0px;
+    height: calc(100% - 55px);
+    width:100%;
+    background-color:#222;
+    z-index:-5;
+    padding:0px;
+    margin:0px;
+}
+
+#map-canvas {
+    height:100%;
+    z-index:-5;
+}

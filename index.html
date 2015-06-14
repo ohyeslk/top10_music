@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Top10-Music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!--                        Bootstrap Stuff                          -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!--                CSS Includes                                -->
+    <link href="css/navbar.css" rel="stylesheet" media="screen">
+    <link href="css/map.css" rel="stylesheet" media="screen">
+    <link href="css/overlay.css" rel="stylesheet" media="screen">
+    <!--                End of CSS Includes                         -->
+
+    <!--                JS Includes                             -->
+    <script src="js/navbar.js"></script>
+    <script src="js/fetchInfo.js"></script>
+    <!--                End of JS Includes                          -->
+
+</head>
+<body>
+    <!--                            Bootstrap Stuff                     -->
+    <nav class="navbar navbar-inverse" id="navbar_main">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <span class="glyphicon glyphicon-menu-hamburger" id="navbar_menu_button_icon" onclick="toggleDropdown()"></span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <div class="input-group" id="navbar_menu_search_group">
+                            <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { search(); return false; }" placeholder="Search for..." id="navbar_menu_search_field">
+                            <span class="input-group-btn">
+                                <button onclick ="search();" class="btn btn-default" type="button" id="navbar_menu_search_button">
+                                    <span class="glyphicon glyphicon-search" id="navbar_menu_search_button_icon"></span>
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+        <h1 id="navbar_title"><img src="img/logo_small.png" style="width:36px; margin-top:-10px;" />  Top10-Music</h1>
+        <ul id="dropdown_content">
+            <li><a href="index.html" onclick="toggleDropdown();">Home</a></li>
+            <li><a href="#" onclick="toggleAbout(); toggleDropdown();">About</a></li>
+            <li><a href="#" onclick="toggleDropdown();">Preferences</a></li>
+            <li><a href="#" onclick="toggleDropdown();">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="map">
+        <iframe src="map.html" width="100%" height="100%" frameborder="0" name="map_frame" id="map_frame">Your browser is not compatible with iframes</iframe>
+    </div>
+
+    <div class="container" id="overlay_small">
+        <div id="overlay_small_arrow">
+        </div>
+        <div id="overlay_background">
+        </div>
+        <h1 id ="overlay_text_location"><span id="overlay_text_location_content">Location Name</span></h1>
+        <table style="width:100%; margin-top:0px;">
+            <tr>
+                <td align="center" width="40%">
+                    <h3 id="overlay_player_text">Now Playing:<br /><span id="overlay_player_song"></span></h3>
+                    <h3 id="overlay_player_text">Artist:<br /><span id="overlay_player_artist"></span></h3>
+                    <div onclick="like();" id="overlay_player_button" id="overlay_player_button">
+                        <span id="overlay_player_button_icon" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    </div>
+                    <div onclick="playToggle();" id="overlay_player_button">
+                        <span id="overlay_player_button_icon_play" style="margin-top: 6px; margin-left: 3px;" class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                    </div>
+                    <div onclick="playNext();" id="overlay_player_button">
+                        <span id="overlay_player_button_icon" class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                    </div>
+                    <br />
+                    <div onclick="playLocal();" id="overlay_player_button_local">
+                        <span id="overlay_player_button_icon" style="margin-top: 0px; margin-left: 3px;" class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        <span style="color:#FFF; font-size:1.5vw; vertical-align:middle; margin-top:15px; margin-right:10px;">Local Artists</span>
+                    </div>
+                    <audio id="audio_player">
+                        <source id="audio_source" src="http://a609.phobos.apple.com/us/r1000/150/Music5/v4/19/59/b8/1959b8a5-40ee-30f0-88bb-837e67aa1762/mzaf_3214268797238166697.plus.aac.p.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </td>
+                <td align="center" width="55%">
+                    <h3 id="overlay_text_top">Top 10:</h3>
+                    <ol id="overlay_text_toplist">
+                        <li><img src="" /><a href="#" onclick="playTop('0');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('1');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('2');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('3');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('4');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('5');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('6');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('7');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('8');"></a></li>
+                        <li><img src="" /><a href="#" onclick="playTop('9');"></a></li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container" id="splash_screen" onclick="fadeSplash()">
+        <img src="img/logo.png" style="position: fixed; top: calc(50% - 300px); left: calc(50% - 197px);" />
+        <h1 style="color: #FFF; font-size: 72px; z-index: -2; text-shadow: 0px 0px 20px white; text-align: center; position: fixed; bottom:100px; left: calc(50% - 155px); font-family:"Segoe UI Light";">Top10-Music</h1>
+    </div>
+
+    <div class="container" id="about_screen">
+        <a href="#" onclick="toggleAbout()"><span id="overlay_player_button_icon" class="glyphicon glyphicon-remove" style="color: #FFF; position: fixed; font-size:24px; top: calc(50% - 280px); left: calc(50% + 250px); " aria-hidden="true"></span></a>
+        <img src="img/logo.png" style="position: fixed; width: 20vw; height: 20vw; bottom:400px; calc(50% - 325px); left: calc(50% - 10vw);" />
+        <h1 style="color: #FFF; font-size: 72px; z-index: -2; text-shadow: 0px 0px 20px white; text-align: center; position: fixed; bottom:300px; left: calc(50% - 155px); font-family:" segoe ui light";">Top10-Music</h1>
+        <h3 style="color: #FFF; font-size: 40px; z-index: -2; text-shadow: 0px 0px 20px white; text-align: center; position: fixed; bottom:230px; left: calc(50% - 150px); font-family:" segoe ui light";">Hi, dummy</h3>
+        <!--
+        <h5 style="color: #FFF; font-size: 40px; z-index: -2; text-shadow: 0px 0px 20px white; text-align: center; position: fixed; bottom:130px; left: calc(50%-20px); font-family:" segoe ui light";">Kai Lu</h5>
+        -->
+        <!--
+        <h5 style="color: #FFF; font-size: 24px; z-index: -2; text-shadow: 0px 0px 20px white; text-align: center; position: fixed; bottom:100px; left: calc(50% - 100px); font-family:" segoe ui light";">For Top10-Music</h5>
+        -->
+    </div>
+
+</body>
+</html>

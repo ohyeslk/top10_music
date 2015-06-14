@@ -1,0 +1,209 @@
+<html>
+<head>
+    <style type="text/css">
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7uvd8L_H5xFZkk_3nCnrEzIES5vk3Ji8">
+
+    </script>
+    <div id="mapContainer">
+        <script type="text/javascript">
+
+            var geocoder;
+            var prevHover;
+            var curCountry;
+            var curCountryName;
+            var curCountryLocation;
+            var created = false;
+            var worldGeometry;
+            var map;
+
+            function initialize() {
+                geocoder =  new google.maps.Geocoder();
+                var mapOptions = {
+                    disableDefaultUI: true,
+                    center: { lat: 0, lng: 0 },
+                    zoom: 2,
+                    styles: [
+              {
+                  "featureType": "all",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "visibility": "off"
+                      }
+                  ]
+              },
+              {
+                  "featureType": "administrative.country",
+                  "elementType": "geometry.stroke",
+                  "stylers": [
+                      {
+                          "visibility": "on"
+                      },
+                      {
+                          "color": "#000000"
+                      }
+                  ]
+              },
+              {
+                  "featureType": "landscape",
+                  "elementType": "geometry.fill",
+                  "stylers": [
+                      {
+                          "color": "#9a939a"
+                      },
+                      {
+                          "visibility": "on"
+                      }
+                  ]
+              },
+              {
+                  "featureType": "water",
+                  "elementType": "all",
+                  "stylers": [
+                      {
+                          "visibility": "on"
+                      },
+                      {
+                          "lightness": -100
+                      }
+                  ]
+              },
+              {
+                  "featureType": "water",
+                  "elementType": "geometry.fill",
+                  "stylers": [
+                      {
+                          "visibility": "on"
+                      },
+                      {
+                          "color": "#1e1f2b"
+                      }
+                  ]
+              },
+              {
+                  "featureType": "water",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                      {
+                          "color": "#ffffff"
+                      },
+                      {
+                          "visibility": "off"
+                      }
+                  ]
+              },
+              {
+                  "featureType": "water",
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                      {
+                          "visibility": "off"
+                      }
+                  ]
+              }
+                    ]
+
+
+
+
+
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+                /*var world_geometry = new google.maps.FusionTablesLayer({
+                      query: {
+                        select: 'geometry',
+                        from: '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk',
+                          where: "ISO_2DIGIT IN ('GB', 'DE')"
+
+                      },
+                      map: map,
+                      suppressInfoWindows: true
+                });*/
+
+                google.maps.event.addListener(map, 'click', function (event) {
+                    getCountry(event.latLng);
+                });
+
+                google.maps.event.addListener(map, 'center_changed', function (event) {
+                    parent.window.hideInfo();
+                });
+
+                google.maps.event.addListenerOnce(map, 'idle', function () {
+                    getCountry(map.getCenter());
+                    var center = "ISO_2DIGIT IN ('" + curCountry + "')";
+                    worldGeometry = new google.maps.FusionTablesLayer({
+                        query: {
+                            select: 'geometry',
+                            from: '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk',
+                            where: center
+
+                        },
+                        map: map,
+                        suppressInfoWindows: true
+                    });
+                });
+
+                google.maps.event.addListener(worldGeometry, 'click', function (event) {
+                    getCountry(event.latLng);
+                });
+            }
+
+            function highlightCountry(country) {
+                var text = "ISO_2DIGIT IN ('" + String(curCountry) + "')";
+                worldGeometry.setOptions({
+                    query: {
+                        select: 'geometry',
+                        from: '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk',
+                        where: text
+                    }
+                })
+            }
+
+            function getCountry(latLng) {
+                geocoder.geocode({ 'latLng': latLng },
+                  function (results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          if (results[0]) {
+                              for (var i = 0; i < results[0].address_components.length; i++) {
+                                  if (results[0].address_components[i].types[0] == "country") {
+                                      curCountry = results[0].address_components[i].short_name;
+                                      curCountryName = results[0].address_components[i].long_name;
+                                      highlightCountry(curCountry);
+                                      curCountryLocation = results[(results.length - 1)].geometry.location;
+                                      map.panTo(curCountryLocation);
+                                      map.setZoom(4);
+                                      parent.window.showInfo();
+                                      parent.window.updateInfo();
+                                      break;
+                                  }
+                              }
+                          }
+                          else {
+                              //didn't find anything
+                          }
+                      }
+                  }
+                );
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
+        </script>
+    </div>
+</head>
+<body>
+    <div id="map-canvas"></div>
+</body>
+</html>

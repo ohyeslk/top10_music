@@ -1,0 +1,223 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#overlay_small {
+    position:fixed;
+    top:60px;
+    left:20px;
+    width:calc(50% - 10vw);
+    height:calc(100% - 80px);
+    background-color:rgba(0,0,0,0.5);
+    z-index: -4;
+    padding:20px;
+    border-radius: 8px;
+    opacity:0;
+    visibility:hidden;
+    -webkit-transition:all 0.5s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_small_arrow {
+    position:absolute;
+    left: 100%;
+    top: calc(50% - 5vw);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5vw 0 5vw 7.5vw;
+    border-color: transparent transparent transparent rgba(0,0,0,0.5);
+   
+}
+
+#overlay_background {
+    position:absolute;
+    left:calc(50% - 6.5vw);
+    top:50px;
+    background-size:cover;
+    opacity:1;
+    width:13vw;
+    height:13vw;
+    border-radius:50%;
+    z-index: -3;
+    box-shadow: 0px 0px 20px white;
+    border:1px solid rgba(255,255,255,0.5);
+}
+
+#overlay_text_location {
+    color: #FFF;
+    font-size:3vw;
+    z-index: -2;
+    text-shadow: 0px 0px 20px white;
+    text-align:center;
+    margin-top:30vh;
+    margin-bottom:0px;
+    font-family:"Segoe UI Light";
+}
+
+#overlay_text_top10 {
+    color: #FFF;
+    font-size:32px;
+    z-index: -2;
+    text-shadow: 0px 0px 10px white;
+    margin-top:0px;
+    font-family:"Segoe UI Light";
+}
+
+#overlay_player_button_local {
+    display:inline-block;
+    margin:15px;
+    background-color:rgba(0,0,0,0.5);
+    border:1px solid #000;
+    height:2.5vw;
+    border-radius: 4px;
+    box-shadow: 0px 0px 20px #FFF;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_button_local:hover {
+    background-color:#A3C;
+    border:1px solid #000;
+    box-shadow: 0px 0px 20px #A3C;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_button_local #overlay_player_button_icon {
+    color:#FFF;
+    font-size:1.5vw;
+    text-align:center;
+    vertical-align:middle;
+    margin-top:8px;
+    margin-left:-2px;
+    -webkit-transition:all 0.2s ease-out; 
+    transition:all 0.2s ease-out; 
+}
+
+#overlay_player_button_local:hover #overlay_player_button_icon {
+    color:#000;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_button {
+    display:inline-block;
+    margin:15px;
+    background-color:rgba(0,0,0,0.5);
+    border:1px solid #000;
+    width:2.5vw;
+    height:2.5vw;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px #FFF;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_button:hover {
+    background-color:#A3C;
+    border:1px solid #000;
+    box-shadow: 0px 0px 20px #A3C;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+
+#overlay_player_button #overlay_player_button_icon {
+    color:#FFF;
+    font-size:1.5vw;
+    text-align:center;
+    vertical-align:middle;
+    margin-top:8px;
+    margin-left:-2px;
+    -webkit-transition:all 0.2s ease-out; 
+    transition:all 0.2s ease-out; 
+}
+
+#overlay_player_button:hover #overlay_player_button_icon {
+    color:#000;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_button #overlay_player_button_icon_play {
+    color:#FFF;
+    font-size:1.5vw;
+    text-align:center;
+    vertical-align:middle;
+    margin-top:8px;
+    margin-left:-2px;
+    -webkit-transition:all 0.2s ease-out; 
+    transition:all 0.2s ease-out; 
+
+}
+
+#overlay_player_button:hover #overlay_player_button_icon_play {
+    color:#000;
+    -webkit-transition:all 0.3s ease-out; 
+    transition:all 0.3s ease-out; 
+}
+
+#overlay_player_text {
+    color: #FFF;
+    font-size:2vw;
+    z-index: -2;
+    text-shadow: 0px 0px 10px #FFF;
+    text-align:center;
+    margin-top:0px;
+    font-family:"Segoe UI Light";
+}
+
+#overlay_text_top {
+    color:#FFF;
+}
+
+#overlay_text_toplist {
+    color:#FFF;
+    max-height:47vh;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+#overlay_text_toplist li {
+    text-align:left;
+    vertical-align:middle;
+    font-size:14px;
+    margin:auto;
+    margin-top:0px;
+    margin-bottom:5px;
+    width:100%;
+}
+
+#overlay_text_toplist img {
+    vertical-align:middle;
+    height:3vh;
+    width:3vh;
+    border-radius:10%;
+    display:inline;
+}
+
+#overlay_text_toplist li a {
+    text-align:left;
+    vertical-align:middle;
+    margin:auto;
+    margin-left:5px;
+    font-size:1.5vh;
+    margin-top:0px;
+    margin-bottom:0px;
+    text-decoration:none;
+    text-shadow: 0px 0px 20px black;
+    -webkit-transition:all 0.2s ease-out; 
+    transition:all 0.2s ease-out; 
+}
+
+#overlay_text_toplist li a:hover {
+    color:#FFF;
+    text-shadow: 0px 0px 20px white;
+}
+
+#overlay_player_song {
+    font-size:1.3vw;
+}
+#overlay_player_artist {
+    font-size:1.3vw;
+}
